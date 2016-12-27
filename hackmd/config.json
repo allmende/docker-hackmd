@@ -1,12 +1,16 @@
 {
     "production": {
-        "urladdport": true,
-        "email": true,
+        "domain": "hack.allmende.io",
+        "alloworigin": [ "allmende.io" ],
+        "protocolusessl": true,
+        "allowfreeurl": true,
+        "imageUploadType": "filesystem",
+        "email": false,
         "db": {
             "username": "hackmd",
             "password": "hackmdpass",
             "database": "hackmd",
-            "host": "hackmdPostgres",
+            "host": "postgres",
             "port": "5432",
             "dialect": "postgres"
         }

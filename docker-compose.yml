@@ -1,15 +1,29 @@
-hackmdPostgres:
-  image: postgres
-  environment:
-    - POSTGRES_USER=hackmd
-    - POSTGRES_PASSWORD=hackmdpass
-    - POSTGRES_DB=hackmd
-hackmd:
-  image: hackmdio/hackmd:0.4.6
-  environment:
-    - POSTGRES_USER=hackmd
-    - POSTGRES_PASSWORD=hackmdpass
-  links:
-    - hackmdPostgres
-  ports:
-    - "3000:3000"
+version: '2'
+services:
+  postgres:
+    image: postgres
+    env_file:
+      - back-tier.env
+    networks:
+      - back-tier
+  web:
+    build: ./hackmd/
+    env_file:
+      - front-tier.env
+    volumes:
+      - ./hackmd/config.json:/hackmd/config.json
+      - ./hackmd/.sequelizerc:/hackmd/.sequelizerc
+    links:
+      - postgres
+    expose:
+      - "3000"
+    networks:
+      - front-tier
+      - back-tier
+
+networks:
+  front-tier:
+    external:
+      name: nginx_default
+  back-tier:
+    driver: bridge

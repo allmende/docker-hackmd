@@ -1,5 +1,5 @@
 //config
-var domain = ''; // domain name
+var domain = 'hack.allmende.io'; // domain name
 var urlpath = ''; // sub url path, like: www.example.com/<urlpath>
 //settings
 var debug = false;
