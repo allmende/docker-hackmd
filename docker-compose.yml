@@ -11,6 +11,7 @@ services:
   web:
 #    build: ./hackmd/
     image: hackmdio/hackmd:0.5.1
+    command: /hackmd/docker-entrypoint.sh
     env_file:
       - front-tier.env
     volumes:
