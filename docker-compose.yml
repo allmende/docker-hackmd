@@ -2,6 +2,8 @@ version: '2'
 services:
   postgres:
     image: postgres
+    volumes:
+      - /srv/docker-state/hackmd/postgres/data/:/var/lib/postgresql/data/
     env_file:
       - back-tier.env
     networks:
@@ -13,6 +15,7 @@ services:
     volumes:
       - ./hackmd/config.json:/hackmd/config.json
       - ./hackmd/.sequelizerc:/hackmd/.sequelizerc
+      - /srv/docker-state/hackmd/web/uploads/:/hackmd/public/uploads/
     links:
       - postgres
     expose:
