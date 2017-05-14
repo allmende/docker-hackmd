@@ -1,5 +1,26 @@
+[![](https://images.microbadger.com/badges/version/hackmdio/hackmd.svg)](https://microbadger.com/images/hackmdio/hackmd "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/hackmdio/hackmd.svg)](https://microbadger.com/images/hackmdio/hackmd "Get your own image badge on microbadger.com")
+
+[![](https://images.microbadger.com/badges/version/hackmdio/hackmd:lite.svg)](https://microbadger.com/images/hackmdio/hackmd:lite "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/hackmdio/hackmd:lite.svg)](https://microbadger.com/images/hackmdio/hackmd:lite "Get your own image badge on microbadger.com")
+
 docker-hackmd
 ===
+
+[migration-to-0.5.0](https://github.com/hackmdio/migration-to-0.5.0)
+---
+
+We don't use LZString to compress socket.io data and DB data after version 0.5.0.  
+Please run the migration tool if you're upgrading from the old version.
+
+1. Stop your hackmd containers
+2. Modify `docker-compose.yml`, add expose ports `5432` to `hackmdPostgres`
+3. `docker-compose up` to start your hackmd containers
+4. Backup DB (see below)
+5. Git clone above `migration-to-0.5.0` and `npm install` (see more on above link)
+6. Modify `config.json` in `migration-to-0.5.0`, change its `username`, `password` and `host` to your docker
+7. Run migration (see more on above link)
+8. Stop your hackmd containers
+9. Modify `docker-compose.yml`, remove expose ports `5432` in `hackmdPostgres`
+10. git pull in `docker-hackmd`, update to version 0.5.0 (see below)
 
 ## Prerequisite
 * git
@@ -56,7 +77,7 @@ Similar to backup steps, but last command is
 The default setting would use pre-build docker image, follow below steps to customize your HackMD.
 
 1. Modify `docker-compose.yml` at line 8 `image: hackmdio/hackmd:0.4.5` to `build: hackmd`.
-2. Change the config files `hackmd/config.js` or `hackmd/config.json`, guide [here](https://github.com/hackmdio/hackmd/#configuration-files).
+2. Change the config file `hackmd/config.json`, guide [here](https://github.com/hackmdio/hackmd/#configuration-files).
 3. Run `docker-compose build --no-cache` in the docker terminal to build your own image.
 4. Then `docker-compose up` to startup.
 

@@ -9,7 +9,8 @@ services:
     networks:
       - back-tier
   web:
-    build: ./hackmd/
+#    build: ./hackmd/
+    image: hackmdio/hackmd:0.5.1
     env_file:
       - front-tier.env
     volumes:
