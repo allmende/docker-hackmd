@@ -1,0 +1,4 @@
+migration-to-0.5.0
+*.env
+*.sql
+*.sql.gz
